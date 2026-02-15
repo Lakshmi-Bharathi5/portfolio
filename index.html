@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Scientist Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section with Cover Photo */
+        .hero {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('images/cover.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-profile {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-btn {
+            padding: 1rem 2rem;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-btn:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(255,255,255,0.3);
+        }
+
+        .hero-btn.primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .hero-btn.primary:hover {
+            background: transparent;
+            color: white;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator::after {
+            content: '↓';
+            color: white;
+            font-size: 2rem;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #667eea;
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        section {
+            margin-bottom: 5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        section:nth-child(2) { animation-delay: 0.1s; }
+        section:nth-child(3) { animation-delay: 0.2s; }
+        section:nth-child(4) { animation-delay: 0.3s; }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .about-profile {
+            width: 200px;
+            height: 200px;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+        }
+
+        .education-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .education-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-box p {
+            opacity: 0.95;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            transition: transform 0.3s;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-box h3 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-box p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border-top: 4px solid #667eea;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(102,126,234,0.2);
+        }
+
+        .skill-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Experience Section */
+        .experience-timeline {
+            position: relative;
+            margin-top: 2rem;
+        }
+
+        .experience-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s;
+        }
+
+        .experience-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(102,126,234,0.2);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+
+        .experience-header h3 {
+            color: #667eea;
+            font-size: 1.5rem;
+        }
+
+        .experience-header .company {
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        .experience-header .date {
+            color: #666;
+            font-style: italic;
+        }
+
+        .experience-item ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .experience-item li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            position: relative;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .experience-item li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-content h3 {
+            color: #667eea;
+            margin-bottom: 0.8rem;
+            font-size: 1.4rem;
+        }
+
+        .project-tech {
+            color: #764ba2;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .project-content p {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .project-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .project-content li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .project-content li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        /* Contact Section */
+        .contact-form {
+            max-width: 700px;
+            margin: 2rem auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102,126,234,0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: opacity 0.3s;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .hero-profile {
+                width: 150px;
+                height: 150px;
+            }
+            
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 3rem 1.5rem;
+            }
+
+            .experience-header {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section with Cover Photo -->
+    <section class="hero">
+        <div class="hero-content">
+            <img src="images/profile.jpg" alt="Profile Photo" class="hero-profile">
+            <h1>LAKSHMI BHARATHI ILANGOVAN</h1>
+            <div class="hero-buttons">
+                <a href="#projects" class="hero-btn primary">View My Work</a>
+                <a href="#contact" class="hero-btn">Get In Touch</a>
+            </div>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- About Section -->
+        <section id="about">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <img src="images/profile.jpg" alt="Profile Photo" class="about-profile">
+                <div class="about-text">
+                    <p><strong>Welcome!</strong></p>
+                    <p>I'm a Data Scientist based in Chennai. I work with Python, PySpark, SQL, and cloud technologies to build systems that process and analyze information at scale.</p>
+                    <p>I'm interested in solving problems where data can make a real difference, whether that's in finance, healthcare, or beyond.</p>
+                </div>
+            </div>
+            
+            <div class="education-box">
+                <h3>Rajalakshmi Engineering College, Chennai</h3>
+                <p><strong>Bachelor of Technology</strong></p>
+                <p>GPA: 8.99/10</p>
+            </div>
+
+            <div class="about-stats">
+                <div class="stat-box">
+                    <h3>1+</h3>
+                    <p>Years Experience</p>
+                </div>
+                <div class="stat-box">
+                    <h3>20M+</h3>
+                    <p>Daily Records Processed</p>
+                </div>
+                <div class="stat-box">
+                    <h3>15+</h3>
+                    <p>Production Pipelines</p>
+                </div>
+                <div class="stat-box">
+                    <h3>95%</h3>
+                    <p>Uptime Achievement</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience">
+            <h2>Professional Experience</h2>
+            <div class="experience-timeline">
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <h3>Data Scientist</h3>
+                            <p class="company">Roni Analytics, Chennai</p>
+                        </div>
+                        <p class="date">Feb 2025 – Feb 2026</p>
+                    </div>
+                    <ul>
+                        <li>Designed and maintained analytical data models implementing Medallion architecture for blockchain data; built 15+ production ELT pipelines processing 20M+ daily records with PySpark achieving 95% uptime, reduced costs 50% through Spark optimization</li>
+                        <li>Led scalable event-driven processing consolidating Ethereum, Base, Solana chain data into centralized data warehouse; developed 20+ custom PySpark metrics and optimized 50+ Dune Analytics SQL queries reducing execution runtime by 50%</li>
+                        <li>Built ML-powered prediction market analytics platform integrating Polymarket and Kalshi APIs with real-time news feeds; implemented classification model achieving 72% accuracy in outcome prediction with interactive Streamlit dashboard</li>
+                        <li>Established automated data quality monitoring system validating 25+ DeFi protocol TVLs with daily alerts; implemented concurrent processing reducing data quality issues by 90%</li>
+                        <li>Engineered quantitative indicator systems processing 500+ trading pairs achieving 80% accuracy in buy/sell predictions with comprehensive backtesting framework</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <h3>Intern</h3>
+                            <p class="company">LTIMindtree, Remote</p>
+                        </div>
+                        <p class="date">May 2024 - Aug 2024</p>
+                    </div>
+                    <ul>
+                        <li>Completed comprehensive training in Big Data and Data Engineering fundamentals including PySpark, Data Warehousing, Relational Databases, Cloud Computing, and Power BI</li>
+                        <li>Gained hands-on experience with Python and SQL for data processing, transformation, and analysis workflows</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <h3>Project Intern</h3>
+                            <p class="company">Indian Institute of Technology Madras</p>
+                        </div>
+                        <p class="date">Jan 2023 - Aug 2023</p>
+                    </div>
+                    <ul>
+                        <li>Developed deep learning CNN model achieving 95% classification accuracy for early-stage lung cancer diagnosis on 5,000+ high-resolution CT scans using TensorFlow and Keras</li>
+                        <li>Optimized model training efficiency by 30% through architecture design and reduced training time by 20% via transfer learning with ResNet50 and DenseNet201</li>
+                        <li>Applied advanced image preprocessing and hyperparameter tuning minimizing false-positive rates to < 5% for clinical deployment</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <h3>Research Intern</h3>
+                            <p class="company">Centre for Stem Cell and Cancer Genomics, AMI Bioscience</p>
+                        </div>
+                        <p class="date">Aug 2021 - Sep 2021</p>
+                    </div>
+                    <ul>
+                        <li>Analyzed 500+ genomic datasets using Python and bioinformatics tools, identified 10+ potential therapeutic targets</li>
+                        <li>Visualized 20+ genome pathways and contributed to two research papers on cancer genomics and stem cell therapies</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <h2>Skills & Technologies</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>💻 Programming Languages</h3>
+                    <p>Python, SQL (PostgreSQL, MySQL)</p>
+                </div>
+                <div class="skill-card">
+                    <h3>📊 Data & Cloud</h3>
+                    <p>Pandas, NumPy, PySpark, Databricks, AWS (S3, Lambda, RDS, EC2, SNS), Git, Time Series Analysis</p>
+                </div>
+                <div class="skill-card">
+                    <h3>🤖 Machine Learning</h3>
+                    <p>Classification, Logistic Regression, Decision Tree, XGBoost, Deep Learning, CNN, Transfer Learning, Hyperparameter Tuning, Feature Engineering</p>
+                </div>
+                <div class="skill-card">
+                    <h3>📈 Data Quality & Visualization</h3>
+                    <p>Data Validation, Monitoring, matplotlib, seaborn, Plotly, Power BI, Streamlit, Anomaly Detection, A/B Testing</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2>Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3>ML-Powered Prediction Market Analytics</h3>
+                        <p class="project-tech">Python, Machine Learning, APIs, Streamlit</p>
+                        <p>Built a comprehensive analytics platform integrating multiple prediction market APIs with real-time news feeds and AI-generated insights.</p>
+                        <ul>
+                            <li>Classification model with 72% accuracy in outcome prediction</li>
+                            <li>Feature engineering on market data including volume, liquidity, price movements</li>
+                            <li>Interactive Streamlit dashboard with automated trading bot</li>
+                            <li>Sentiment analysis and news correlation implementation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3>Credit Card Default Prediction</h3>
+                        <p class="project-tech">Logistic Regression, Decision Tree, XGBoost, Python, scikit-learn</p>
+                        <p>Engineered binary classifier achieving 0.781 AUC on 30K customers handling 78-22 class imbalance.</p>
+                        <ul>
+                            <li>Crafted 4 behavioral features improving baseline by 8%</li>
+                            <li>Identified payment history as strongest predictor (35% importance)</li>
+                            <li>Implemented class weighting strategies for imbalanced data</li>
+                            <li>Enabled targeted interventions for high-risk customer segments</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3>Lung Cancer Detection with Deep Learning</h3>
+                        <p class="project-tech">CNN, TensorFlow, Keras, Transfer Learning, ResNet50, DenseNet201</p>
+                        <p>Developed CNN model achieving 95% classification accuracy for early-stage lung cancer diagnosis on 5,000+ CT scans.</p>
+                        <ul>
+                            <li>30% improvement in training efficiency through architecture optimization</li>
+                            <li>20% reduction in training time via transfer learning</li>
+                            <li>False-positive rate minimized to < 5%</li>
+                            <li>Advanced preprocessing: normalization, augmentation, noise reduction</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3>Loan Approval Prediction System</h3>
+                        <p class="project-tech">Logistic Regression, XGBoost, Decision Tree, scikit-learn</p>
+                        <p>Developed automated decision system with 0.803 AUC and 87% precision on 1,000 applications.</p>
+                        <ul>
+                            <li>Cost-sensitive evaluation framework implementation</li>
+                            <li>Created risk scoring with 8 engineered features</li>
+                            <li>Three-tier approval framework enabling 80% automation</li>
+                            <li>87% better financial outcomes than tree-based alternatives</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3>Blockchain Data Analytics Platform</h3>
+                        <p class="project-tech">PySpark, Databricks, AWS, SQL, Medallion Architecture</p>
+                        <p>Built scalable data pipelines processing 20M+ daily blockchain records across multiple chains.</p>
+                        <ul>
+                            <li>15+ production ELT pipelines with 95% uptime</li>
+                            <li>50% cost reduction through Spark optimization</li>
+                            <li>Consolidated Ethereum, Base, Solana data into centralized warehouse</li>
+                            <li>Developed 20+ custom metrics for protocol-level analytics</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3>Automated Data Quality Monitoring System</h3>
+                        <p class="project-tech">Python, Pandas, Asyncio, Statistical Analysis, Telegram Bot</p>
+                        <p>Established monitoring system validating 25+ DeFi protocol TVLs with automated alerts.</p>
+                        <ul>
+                            <li>90% reduction in data quality issues</li>
+                            <li>Concurrent processing with pandas and asyncio</li>
+                            <li>Statistical anomaly detection for outliers and missing data</li>
+                            <li>Daily email alerts and Telegram bot notifications</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Let's Connect</h2>
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <textarea id="message" name="message" placeholder="I'd like to discuss..." required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Data Scientist Portfolio. All rights reserved.</p>
+        <div class="social-links">
+            <a href="https://github.com/Lakshmi-Bharathi5" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/lakshmi-bharathi-i-a8973121a/" target="_blank">LinkedIn</a>
+            <a href="mailto:lakshmibharathi.ik@gmail.com">Email</a>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Contact form
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thanks for reaching out! This is a demo form. Connect it to Netlify Forms or your preferred backend service.');
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

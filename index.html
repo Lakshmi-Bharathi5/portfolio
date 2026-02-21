@@ -9,6 +9,7 @@
 body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;overflow-x:hidden}
 
 .hero{position:relative;height:100vh;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background-image:url('images/cover.jpg');background-size:cover;background-position:center;opacity:0.15;z-index:0}
 .hero-content{position:relative;z-index:1;text-align:center;color:white;animation:fadeInUp 1s ease-out;padding:2rem}
 .hero-avatar{width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.2);border:4px solid white;display:flex;align-items:center;justify-content:center;font-size:4rem;margin:0 auto 1.5rem;animation:float 3s ease-in-out infinite;box-shadow:0 10px 40px rgba(0,0,0,0.3)}
 .hero h1{font-size:3rem;margin-bottom:.5rem;text-shadow:2px 2px 10px rgba(0,0,0,0.3)}
@@ -112,7 +113,7 @@ footer a:hover{opacity:1}
 
 <section class="hero">
   <div class="hero-content">
-    <div class="hero-avatar">👩‍💻</div>
+    <img src="images/profile.jpg" alt="Lakshmi Bharathi" style="width:160px;height:160px;border-radius:50%;object-fit:cover;border:4px solid white;margin:0 auto 1.5rem;display:block;animation:float 3s ease-in-out infinite;box-shadow:0 10px 40px rgba(0,0,0,0.3)">
     <div class="tagline">Data Scientist</div>
     <h1>Lakshmi Bharathi Ilangovan</h1>
     <div class="hero-buttons">
@@ -139,7 +140,7 @@ footer a:hover{opacity:1}
   <section id="about" class="fade-in">
     <h2>About Me</h2>
     <div class="about-content">
-      <div class="about-avatar">👩‍💻</div>
+      <img src="images/profile.jpg" alt="Lakshmi Bharathi" style="width:160px;height:160px;border-radius:15px;object-fit:cover;flex-shrink:0;box-shadow:0 10px 30px rgba(102,126,234,.3)">
       <div class="about-text">
         <p><strong>Welcome!</strong></p>
         <p>I'm a Data Scientist based in Chennai. I work with Python, PySpark, SQL, and cloud technologies to build systems that process and analyze information at scale.</p>
